@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: account-service
+  rabbitmq:
+    host: localhost
+    port: 5672
+  cloud:
+    stream:
+      bindings:
+        confirmedOrderByAccount-out-0:
+          destination: orders-in
+        confirmedOrderByAccount-in-0:
+          destination: orders-out
+          group: account
+      rabbit:
+        bindings:
+          confirmedOrderByAccount-out-0:
+            producer:
+              exchangeType: direct
+              routingKeyExpression: '"#"'
+server:
+  port: ${PORT:8094}

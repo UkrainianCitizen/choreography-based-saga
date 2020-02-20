@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: order-service
+  rabbitmq:
+    #    host: 192.168.99.100
+    host: localhost
+    port: 5672
+  cloud:
+    function:
+      definition: orderSupplier;orderConsumer
+    stream:
+      bindings:
+        orderConsumer-in-0:
+          destination: orders-in
+        orderSupplier-out-0:
+          destination: orders-out
+      rabbit:
+        bindings:
+          orderConsumer-in-0:
+            consumer:
+              exchangeType: direct
+server:
+  port: ${PORT:8090}
+
