@@ -20,14 +20,21 @@
 	</modules>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<project.version>1.0-SNAPSHOT</project.version>
 		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>
 		<spring-cloud-stream.version>Horsham.SR1</spring-cloud-stream.version>
+		<lombok.version>1.18.12</lombok.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+				<scope>provided</scope>
+			</dependency>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>

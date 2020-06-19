@@ -18,5 +18,8 @@ spring:
             producer:
               exchangeType: direct
               routingKeyExpression: '"#"'
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
 server:
   port: ${PORT:8094}

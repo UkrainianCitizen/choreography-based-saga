@@ -1,16 +1,14 @@
 package ua.ahuba.messagedrivenmicroservices.accountservice.service;
 
+import lombok.AllArgsConstructor;
 import ua.ahuba.messagedrivenmicroservices.accountservice.model.Account;
 import ua.ahuba.messagedrivenmicroservices.accountservice.repo.AccountRepository;
 import java.util.List;
 
+@AllArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
-
-    public AccountServiceImpl(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
-    }
 
     @Override
     public Account add(Account account) {
