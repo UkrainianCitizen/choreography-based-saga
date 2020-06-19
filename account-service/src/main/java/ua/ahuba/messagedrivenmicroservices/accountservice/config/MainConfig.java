@@ -8,7 +8,7 @@ import ua.ahuba.messagedrivenmicroservices.accountservice.service.AccountService
 import ua.ahuba.messagedrivenmicroservices.accountservice.service.AccountServiceImpl;
 
 @Configuration
-public class DataConfig {
+public class MainConfig {
 
     @Bean
     public AccountService service() {
