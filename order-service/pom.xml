@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>ua.ahuba.message-driven-microservices</groupId>
+        <groupId>ua.citizen.message-driven-microservices</groupId>
         <version>1.0-SNAPSHOT</version>
         <artifactId>message-driven-microservices-root</artifactId>
     </parent>
@@ -39,7 +39,7 @@
             <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
         </dependency>
         <dependency>
-            <groupId>ua.ahuba.message-driven-microservices</groupId>
+            <groupId>ua.citizen.message-driven-microservices</groupId>
             <artifactId>messaging-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
