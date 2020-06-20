@@ -19,6 +19,9 @@ spring:
           orderConsumer-in-0:
             consumer:
               exchangeType: direct
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
 server:
   port: ${PORT:8090}
 
