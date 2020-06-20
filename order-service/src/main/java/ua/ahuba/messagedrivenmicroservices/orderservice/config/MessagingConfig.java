@@ -26,7 +26,7 @@ public class MessagingConfig {
                 log.info("\nOrder received:" + System.lineSeparator() + mapper.writeValueAsString(order));
                 orderProcessor.process(order);
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error(e.getMessage(), e);
             }
         };
     }
