@@ -9,7 +9,7 @@ public interface ProductService {
 
     Product update(Product product);
 
-    Product findById(Long id);
+    Product findById(Long id) throws Exception;
 
     void delete(Long id);
 

@@ -1,38 +1,37 @@
 package ua.ahuba.productservice.messaging;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.ahuba.productservice.model.Product;
-import ua.ahuba.productservice.repository.ProductRepository;
 import ua.ahuba.messaging.Order;
 import ua.ahuba.messaging.OrderStatus;
+import ua.ahuba.productservice.service.ProductService;
 
+@Slf4j
+@AllArgsConstructor
 public class ProductProcessorImpl implements ProductProcessor {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProductProcessorImpl.class);
-
-    private final ProductRepository repository;
-    private final ObjectWriter objectWriter;
-
-    public ProductProcessorImpl(ProductRepository repository, ObjectWriter objectWriter) {
-        this.repository = repository;
-        this.objectWriter = objectWriter;
-    }
+    private final ProductService service;
+    private final ObjectMapper mapper;
 
     @Override
-    public Order process(final Order order) throws JsonProcessingException {
-        for (Long productId : order.getProductIds()) {
-            Product product = repository.findById(productId);
-            LOGGER.info("\nProduct was found: {}", objectWriter.writeValueAsString(product));
+    public Order process(final Order order) throws Exception {
+        for (val productId : order.getProductIds()) {
+            val product = service.findById(productId);
+            log.info("\nProduct was found: {}", mapper.writeValueAsString(product));
             if (product.getCount() == 0) {
                 order.setStatus(OrderStatus.REJECTED);
                 break;
             }
             product.setCount(product.getCount() - 1);
-            repository.update(product);
-            LOGGER.info("\nProduct updated: {}", objectWriter.writeValueAsString(product));
+            service.update(product);
+            log.info("\nProduct updated: {}", mapper.writeValueAsString(product));
         }
         if (order.getStatus() != OrderStatus.REJECTED) {
             order.setStatus(OrderStatus.ACCEPTED);

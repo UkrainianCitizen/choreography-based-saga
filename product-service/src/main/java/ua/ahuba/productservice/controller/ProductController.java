@@ -2,8 +2,8 @@ package ua.ahuba.productservice.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,17 +17,12 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
+@Slf4j
 public class ProductController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
-
-    private ObjectMapper mapper = new ObjectMapper();
-
+    private final ObjectMapper mapper;
     private final ProductService service;
-
-    public ProductController (ProductService productService) {
-        this.service = productService;
-    }
 
     @PostMapping
     public Product add(@RequestBody Product product) {
@@ -40,14 +35,14 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product findById(@PathVariable("id") Long id) {
+    public Product findById(@PathVariable("id") Long id) throws Exception {
         return service.findById(id);
     }
 
     @PostMapping("/ids")
     public List<Product> find(@RequestBody List<Long> ids) throws JsonProcessingException {
-        List<Product> products = service.find(ids);
-        LOGGER.info("Products found: {}", mapper.writeValueAsString(Collections.singletonMap("count", products.size())));
+        var products = service.find(ids);
+        log.info("Products found: {}", mapper.writeValueAsString(Collections.singletonMap("count", products.size())));
         return products;
     }
 

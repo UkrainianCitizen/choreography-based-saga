@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class ProductRepositoryImpl implements ProductRepository {
 
-    private List<Product> products = new ArrayList<>();
+    private final List<Product> products = new ArrayList<>();
 
     @Override
     public Product add(Product product) {
@@ -24,9 +24,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Product findById(Long id) {
-        Optional<Product> product = products.stream().filter(p -> p.getId().equals(id)).findFirst();
-        return product.orElse(null);
+    public Optional<Product> findById(Long id) {
+        return products.stream().filter(p -> p.getId().equals(id)).findFirst();
     }
 
     @Override

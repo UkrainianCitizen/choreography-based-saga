@@ -2,13 +2,14 @@ package ua.ahuba.productservice.repository;
 
 import ua.ahuba.productservice.model.Product;
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepository {
     Product add(Product product);
 
     Product update(Product product);
 
-    Product findById(Long id);
+    Optional<Product> findById(Long id);
 
     void delete(Long id);
 
