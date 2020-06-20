@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.citizen.productservice.model.Product;
 import ua.citizen.productservice.service.ProductService;
@@ -21,8 +22,8 @@ import java.util.List;
 @Slf4j
 public class ProductController {
 
-    private final ObjectMapper mapper;
     private final ProductService service;
+    private final ObjectMapper mapper;
 
     @PostMapping
     public Product add(@RequestBody Product product) {
