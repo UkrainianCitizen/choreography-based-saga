@@ -1,17 +1,15 @@
 package ua.ahuba.messagedrivenmicroservices.orderservice.service;
 
+import lombok.AllArgsConstructor;
 import ua.ahuba.messagedrivenmicroservices.orderservice.repository.OrderRepository;
 import ua.ahuba.messaging.Order;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
-
-    public OrderServiceImpl(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
-    }
 
     @Override
     public Order add(Order order) {

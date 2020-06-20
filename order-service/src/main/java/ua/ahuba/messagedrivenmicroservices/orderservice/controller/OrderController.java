@@ -1,6 +1,8 @@
 package ua.ahuba.messagedrivenmicroservices.orderservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -16,24 +18,18 @@ import ua.ahuba.messagedrivenmicroservices.orderservice.repository.OrderReposito
 import java.util.function.Supplier;
 
 @RestController
+@Slf4j
+@AllArgsConstructor
 public final class OrderController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
-    private ObjectMapper mapper;
-
+    private final ObjectMapper mapper;
     private final OrderRepository repo;
-    private final EmitterProcessor<Order> processor;
-
-    public OrderController(ObjectMapper mapper, OrderRepository repo) {
-        this.mapper = mapper;
-        this.repo = repo;
-        this.processor = EmitterProcessor.create();
-    }
+    private final EmitterProcessor<Order> processor = EmitterProcessor.create();
 
     @PostMapping
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public void produceOrder(@RequestBody Order order) throws Exception {
-        LOGGER.info("\nOrder sent: {}", mapper.writeValueAsString(repo.add(order)));
+        log.info("\nOrder sent: {}", mapper.writeValueAsString(repo.add(order)));
         processor.onNext(order);
     }
 
