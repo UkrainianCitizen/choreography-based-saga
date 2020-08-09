@@ -28,15 +28,16 @@ public class MessagingConfig {
     }
 
     @Bean
-    public Consumer<Order> orderConsumer(OrderProcessor orderProcessor, ObjectMapper mapper) {
-        return order -> {
-            try {
-                log.info("\nOrder received:" + System.lineSeparator() + mapper.writeValueAsString(order));
-                orderProcessor.process(order);
-            } catch (Exception e) {
-                log.error(e.getMessage(), e);
-            }
-        };
+    public Consumer<Flux<Order>> orderConsumer(OrderProcessor orderProcessor, ObjectMapper mapper) {
+        return order -> order.map(receivedOrder -> {
+        try {
+            log.info("\nOrder received:" + System.lineSeparator() + mapper.writeValueAsString(receivedOrder));
+            orderProcessor.process(receivedOrder);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return receivedOrder;
+        });
     }
 
     @Bean

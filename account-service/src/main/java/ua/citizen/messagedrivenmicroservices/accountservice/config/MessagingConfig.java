@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import reactor.core.publisher.Flux;
 import ua.citizen.messagedrivenmicroservices.accountservice.messaging.AccountProcessor;
 import ua.citizen.messagedrivenmicroservices.accountservice.messaging.AccountProcessorImpl;
 import ua.citizen.messagedrivenmicroservices.accountservice.service.AccountService;
@@ -23,8 +24,8 @@ public class MessagingConfig {
     }
 
     @Bean
-    public Function<Order, Order> confirmedOrderByAccount(ObjectMapper mapper, AccountProcessor processor) {
-        return order -> {
+    public Function<Flux<Order>, Flux<Order>> confirmedOrderByAccount(ObjectMapper mapper, AccountProcessor processor) {
+        return passedOrder -> passedOrder.map(order -> {
             var processedOrder = new Order();
             try {
                 log.info("\nOrder received:" + System.lineSeparator() + mapper.writeValueAsString(order));
@@ -36,6 +37,6 @@ public class MessagingConfig {
                 e.printStackTrace();
             }
             return processedOrder;
-        };
+        });
     }
 }
