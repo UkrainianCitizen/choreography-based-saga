@@ -22,15 +22,15 @@ public class AccountApplication {
     @Bean
     public CommandLineRunner initDatabase(AccountRepository repo, ObjectMapper mapper) {
         return args -> {
-            repo.add(new Account("1234567890", 50000, 1L));
-            repo.add(new Account("1234567891", 50000, 1L));
-            repo.add(new Account("1234567892", 0, 1L));
-            repo.add(new Account("1234567893", 50000, 2L));
-            repo.add(new Account("1234567894", 0, 2L));
-            repo.add(new Account("1234567895", 50000, 2L));
-            repo.add(new Account("1234567896", 0, 3L));
-            repo.add(new Account("1234567897", 50000, 3L));
-            repo.add(new Account("1234567898", 50000, 3L));
+            repo.add(new Account(1L, 50000));
+            repo.add(new Account(1L, 50000));
+            repo.add(new Account(1L, 0));
+            repo.add(new Account(2L, 50000));
+            repo.add(new Account(2L, 0));
+            repo.add(new Account(2L, 50000));
+            repo.add(new Account(3L, 0));
+            repo.add(new Account(3L, 50000));
+            repo.add(new Account(3L, 50000));
             log.info("Preloading data:\n" + mapper.writeValueAsString(repo.findAll()));
         };
     }

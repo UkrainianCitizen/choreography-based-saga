@@ -2,29 +2,30 @@ package ua.citizen.messagedrivenmicroservices.orderservice.controller;
 
 public class OrderControllerTest {
 
-//    TestRestTemplate template = new TestRestTemplate();
-//
+//    @Value("spring.cloud.function.definition")
+//    private String functionsList;
+
 //    @Test
-//    public void testOrder() throws InterruptedException {
-//        for (int i = 0; i < 100; i++) {
-//            sendAndAcceptOrder();
-//            Thread.sleep(5000);
+//    public void sampleTest() {
+//        try (ConfigurableApplicationContext context = new SpringApplicationBuilder(
+//                TestChannelBinderConfiguration.getCompleteConfiguration(
+//                        MessagingConfig.class))
+//                .run("--spring.cloud.function.definition=orderSupplier;orderConsumer")) {
+//            InputDestination inputDestination  = context.getBean(InputDestination.class);
+//            OutputDestination outputDestination  = context.getBean(OutputDestination.class);
+//
+//
+//            inputDestination.send(new GenericMessage<>("hello".getBytes()));
+//            assertThat(outputDestination.receive().getPayload()).isEqualTo("hello".getBytes());
+//
+//
+//
 //        }
 //    }
-//
-//    private void sendAndAcceptOrder() {
-//        try {
-//            Random r = new Random();
-//            Order order = new Order();
-//            order.setCustomerId((long) r.nextInt(3) + 1);
-//            order.setProductIds(Arrays.asList(new Long[] { (long) r.nextInt(10) + 1, (long) r.nextInt(10) + 1 }));
-//            order = template.postForObject("http://localhost:8090", order, Order.class);
-//            if (order.getStatus() != OrderStatus.REJECTED) {
-//                template.put("http://localhost:8090/{id}", null, order.getId());
-//            }
-//        } catch (Exception e) {
-//
-//        }
+
+//    private Order prepareOrder() {
+//        Order order = new Order();
+//        return order;
 //    }
 
 }

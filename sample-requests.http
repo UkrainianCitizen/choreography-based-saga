@@ -1,0 +1,14 @@
+// Send a sample request to the order service to start the saga,
+// all microservices must run for saga to succeed.
+POST http://localhost:8090
+Content-Type: application/json
+
+{
+    "status": "NEW",
+    "customerId": 4,
+    "productIds": [
+        4,
+        7,
+        10
+    ]
+}
