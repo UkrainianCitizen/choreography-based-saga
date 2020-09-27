@@ -1,7 +1,6 @@
 package ua.citizen.messagedrivenmicroservices.orderservice.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.cloud.function.context.PollableBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import reactor.core.publisher.EmitterProcessor;
@@ -16,8 +15,8 @@ import ua.citizen.messagedrivenmicroservices.orderservice.service.OrderServiceIm
 public class MainConfig {
 
     @Bean
-    public OrderController controller(ObjectMapper mapper, EmitterProcessor<Order> emitterProcessor) {
-        return new OrderController(service(), mapper, emitterProcessor);
+    public OrderController controller(OrderService service, ObjectMapper mapper, EmitterProcessor<Order> emitterProcessor) {
+        return new OrderController(service, mapper, emitterProcessor);
     }
 
     @Bean
